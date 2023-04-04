@@ -60,7 +60,7 @@ zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps -
 zstyle ":completion:*:git-checkout:*" sort false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # FZF
-zinit ice from="gh-r" as="command" bpick="*linux_amd64*"
+zinit ice from="gh-r" as="command"
 zinit light junegunn/fzf
 # FZF BYNARY AND TMUX HELPER SCRIPT
 zinit ice lucid wait'0c' as="command" id-as="junegunn/fzf-tmux" pick="bin/fzf-tmux"
@@ -116,7 +116,7 @@ zinit load 'wfxr/forgit'
 zinit ice lucid wait"0" as"program" from"gh-r" mv"lazygit* -> lazygit" atload"alias lg='lazygit'"
 zinit light 'jesseduffield/lazygit'
 # LAZYDOCKER
-zinit ice lucid wait"0" as"program" from"gh-r" mv"lazydocker* -> lazydocker" atload"alias lg='lazydocker'"
+zinit ice lucid wait"0" as"program" from"gh-r" mv"lazydocker* -> lazydocker" atload"alias ld='lazydocker'"
 zinit light 'jesseduffield/lazydocker'
 # RANGER
 zinit ice depth'1' as"program" pick"ranger.py"
@@ -178,7 +178,7 @@ setopt nolisttypes
 setopt listpacked
 setopt automenu
 unsetopt BEEP
-setopt vi
+# setopt vi
 
 chpwd() {
   set -- "$(git rev-parse --show-toplevel 2> /dev/null)"
