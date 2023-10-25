@@ -5,28 +5,28 @@ rosso='\e[1;34m'
 NC='\e[0m'
 echo -e "${rosso}OSX${NC} | ${rosso}ZSH${NC} ${ZSH_VERSION}"
 
-#####################
-# ZINIT             #
-#####################
+#########################################################################
+# ZINIT
+#########################################################################
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma-continuum/zinit)…%f"
-    command mkdir -p $HOME/.zinit
-    command git clone https://github.com/zdharma-continuum/zinit $HOME/.zinit/bin && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
-        print -P "%F{160}▓▒░ The clone has failed.%F"
+  print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma-continuum/zinit)…%f"
+  command mkdir -p $HOME/.zinit
+  command git clone https://github.com/zdharma-continuum/zinit $HOME/.zinit/bin && \
+  print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
+  print -P "%F{160}▓▒░ The clone has failed.%F"
 fi
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
-#####################
-# THEME             #
-#####################
+#########################################################################
+# THEME
+#########################################################################
 zinit ice depth=1; zinit light romkatv/powerlevel10k
-#####################
-# PLUGINS           #
-#####################
+#########################################################################
+# PLUGINS
+#########################################################################
 # SSH-AGENT
 zinit light bobsoppe/zsh-ssh-agent
 # AUTOSUGGESTIONS, TRIGGER PRECMD HOOK UPON LOAD
@@ -37,6 +37,9 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice wait="0b" lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_FILTER=fzf:fzy:peco
+# ZOXIDE
+zinit ice wait="0" lucid from="gh-r" as="program" pick="zoxide-*/zoxide -> zoxide" cp="zoxide-*/completions/_zoxide -> _zoxide" atclone="./zoxide init zsh > init.zsh" atpull="%atclone" src="init.zsh"
+zinit light ajeetdsouza/zoxide
 # HISTORY SUBSTRING SEARCHING
 zinit ice wait="0b" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
 zinit light zsh-users/zsh-history-substring-search
@@ -79,11 +82,11 @@ zinit ice wait="0c" lucid atinit="zpcompinit;zpcdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting
 # EXA
 zinit ice wait="2" lucid from="gh-r" as="program" mv="bin/exa* -> exa"
-zinit light ogham/exa
+zinit light eza-community/eza
 zinit ice wait blockf atpull'zinit creinstall -q .'
 # DELTA
-zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"
-zinit light 'dandavison/delta'
+zinit ice lucid wait="0" as="program" from="gh-r" pick="delta*/delta"
+zinit light dandavison/delta
 # DUST
 zinit ice wait="2" lucid from="gh-r" as="program" atload="alias du=dust"
 zinit light bootandy/dust
@@ -94,7 +97,7 @@ zinit light ClementTsang/bottom
 zinit ice lucid wait="0" as="program" from="gh-r" atload="alias df=duf"
 zinit light muesli/duf
 # BAT
-zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"
+zinit ice from="gh-r" as="program" mv="bat* -> bat" pick="bat/bat" atload="alias cat=bat"
 zinit light sharkdp/bat
 # BAT-EXTRAS
 zinit ice lucid wait="1" as="program" pick="src/batgrep.sh"
@@ -104,29 +107,37 @@ alias rg=batgrep.sh
 alias bd=batdiff.sh
 alias man=batman.sh
 # RIPGREP
-zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+zinit ice from="gh-r" as="program" mv="ripgrep* -> ripgrep" pick="ripgrep/rg"
 zinit light BurntSushi/ripgrep
 # NEOVIM
-zinit ice lucid wait from"gh-r" as"program" ver"stable" pick"./*/*/nvim"
+zinit ice lucid wait from="gh-r" as="program" ver="nightly" pick"./*/*/nvim"
 zinit light neovim/neovim
+# WEZTERM
+# zinit ice from="gh-r" as="program" bpick="*ebian11.deb" ver="nightly" pick="usr/bin/wezterm"
+zinit ice from="gh-r" as="program" bpick="*appimage*" mv="Wez* -> wezterm" pick="wezterm"
+zinit light wez/wezterm
 # FORGIT
 zinit ice wait lucid
-zinit load 'wfxr/forgit'
+zinit load wfxr/forgit
 # LAZYGIT
-zinit ice lucid wait"0" as"program" from"gh-r" mv"lazygit* -> lazygit" atload"alias lg='lazygit'"
-zinit light 'jesseduffield/lazygit'
+zinit ice lucid wait="0" as="program" from="gh-r" mv="lazygit* -> lazygit" atload="alias lg='lazygit'"
+zinit light jesseduffield/lazygit
 # LAZYDOCKER
-zinit ice lucid wait"0" as"program" from"gh-r" mv"lazydocker* -> lazydocker" atload"alias ld='lazydocker'"
-zinit light 'jesseduffield/lazydocker'
+zinit ice lucid wait="0" as="program" from="gh-r" mv="lazydocker* -> lazydocker" atload="alias ld='lazydocker'"
+zinit light jesseduffield/lazydocker
 # RANGER
-zinit ice depth'1' as"program" pick"ranger.py"
+zinit ice depth="1" as="program" pick="ranger.py"
 zinit light ranger/ranger
 # FD
-zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zinit ice as="command" from="gh-r" mv="fd* -> fd" pick="fd/fd"
 zinit light sharkdp/fd
 # GH-CLI
-zinit ice lucid wait"0" as"program" from"gh-r" pick"gh*/bin/gh"
-zinit light "cli/cli"
+zinit ice lucid wait="0" as="program" from="gh-r" pick="gh*/bin/gh"
+zinit light cli/cli
+# GOOGLE-CLOUD-SDK COMPLETION
+# zinit ice as="completion"; zinit snippet /opt/google-cloud-sdk/completion.zsh.inc
+# TMUXINATOR
+# zinit ice as="completion"; zinit snippet ~/.tmuxinator.zsh
 # ZSH MANYDOTS MAGIC
 zinit ice depth"1" wait lucid pick"manydots-magic" compile"manydots-magic"
 zinit light knu/zsh-manydots-magic
@@ -144,22 +155,30 @@ zinit load denilsonsa/prettyping
 # asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 zinit ice lucid wait="0" pick="asdf.sh"
 zinit light asdf-vm/asdf
+# VSCODE-NODE-DEBUG for NVIM-DAP
+# npm install
+# npm run buil
+zinit ice lucid wait="0" nocompile nocompletions
+zinit light microsoft/vscode-node-debug2.git
 # CROC
 zinit ice lucid wait="0" as="program" from="gh-r" bpick="*64bit*"
 zinit light schollz/croc
+# GLOW
+# zinit ice lucid wait"0" as"program" from"gh-r" bpick='*_amd64.deb' pick"usr/bin/glow"
+# zinit light charmbracelet/glow
 # ERDTREE
 zinit ice lucid wait"0" as"program" from"gh-r"
 zinit light solidiquis/erdtree
-#####################
-# HISTORY           #
-#####################
+#########################################################################
+# HISTORY
+#########################################################################
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zhistory"
 HISTSIZE=290000
 SAVEHIST=$HISTSIZE
 
-#####################
-# SETOPT            #
-#####################
+#########################################################################
+# SETOPT
+#########################################################################
 setopt extended_history       # record timestamp of command in HISTFILE
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_all_dups   # ignore duplicated commands history list
@@ -178,7 +197,7 @@ setopt nolisttypes
 setopt listpacked
 setopt automenu
 unsetopt BEEP
-# setopt vi
+setopt emacs
 
 chpwd() {
   set -- "$(git rev-parse --show-toplevel 2> /dev/null)"
@@ -188,62 +207,68 @@ chpwd() {
     git fetch
   fi
   # ls inside folder after cd
-  exa --git --icons --classify --group-directories-first --time-style=long-iso --group --color-scale
+  eza --git --icons --classify --group-directories-first --time-style=long-iso --group --color-scale
 }
 
-#####################
-# ENV VARIABLE      #
-#####################
+#########################################################################
+# ENV VARIABLE
+#########################################################################
 export EDITOR='nvim'
 export VISUAL=$EDITOR
 export PAGER='less'
 export SHELL='/bin/zsh'
 export LANG='it_IT.UTF-8'
 export LC_ALL='it_IT.UTF-8'
-export BAT_THEME="gruvbox-dark"
-
-#####################
-# COLORING          #
-#####################
+# export BAT_THEME="gruvbox-dark"
+# if [[ ! $(tmux ls) ]] 2> /dev/null; then 
+#   tmux new -s λ
+# fi
+#########################################################################
+# COLORING
+#########################################################################
 autoload colors && colors
 
-#####################
-# ALIASES           #
-#####################
+#########################################################################
+# ALIASES
+#########################################################################
 source $HOME/.zsh_aliases
 
-#####################
-# FANCY-CTRL-Z      #
-#####################
+#########################################################################
+# FANCY-CTRL-Z
+#########################################################################
 function fg-fzf() {
-	job="$(jobs | fzf -0 -1 | sed -E 's/\[(.+)\].*/\1/')" && echo '' && fg %$job
+  job="$(jobs | fzf -0 -1 | sed -E 's/\[(.+)\].*/\1/')" && echo '' && fg %$job
 }
 
 function fancy-ctrl-z () {
-	if [[ $#BUFFER -eq 0 ]]; then
-		BUFFER=" fg-fzf"
-		zle accept-line -w
-	else
-		zle push-input -w
-		zle clear-screen -w
-	fi
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER=" fg-fzf"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-#####################
-# FZF SETTINGS      #
-#####################
+#########################################################################
+# FZF SETTINGS
+#########################################################################
 export FZF_DEFAULT_OPTS="
 --ansi
 --layout=default
 --info=inline
+--color=fg:#c0caf5,bg:#24283b,hl:#ff9e64
+--color=fg+:#c0caf5,bg+:#24283b,hl+:#ff9e64
+--color=info:#7aa2f7,prompt:#7aa2f7,pointer:#db4b4b
+--color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a
 --height=50%
 --multi
 --preview-window=right:50%
 --preview-window=sharp
 --preview-window=cycle
---preview '([[ -f {} ]] && (bat --style=numbers --color=always --theme=gruvbox-dark --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 --prompt='λ -> '
 --pointer='|>'
 --marker='✓'
@@ -260,7 +285,53 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
 --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
 
-#####################
-# P10K SETTINGS     #
-#####################
+#########################################################################
+# FZF-GC-PROJECT
+#########################################################################
+# Thanks to sei40kr/zsh-fzf-gcloud
+
+function fzf-gcloud-config-set-project() {
+  local project="$(gcloud projects list |
+    fzf --header-lines=1 --reverse |
+    awk '{ print $1 }')"
+  if [[ -n "$project" ]]; then
+    gcloud config set project "$project"
+  fi
+}
+zle -N fzf-gcloud-config-set-project
+bindkey '^G' fzf-gcloud-config-set-project
+
+#########################################################################
+# PATH
+#########################################################################
+export PATH=$PATH:/usr/local/go/bin:~/.local/bin:~/bin
+
+#########################################################################
+# GOOGLE-SDK
+#########################################################################
+# if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
+
+#########################################################################
+# GO SETTINGS
+#########################################################################
+# export GOPATH=$HOME/Dev/go
+
+#########################################################################
+# FLUTTER SETTINGS
+#########################################################################
+# export PATH="$PATH:$HOME/Dev/flutter/bin"
+
+#########################################################################
+# ANDROID STUDIO SETTINGS
+#########################################################################
+# export PATH="$PATH:/opt/android-studio/bin"
+#
+#########################################################################
+# MSSQL-TOOLS
+#########################################################################
+# export PATH="$PATH:/opt/mssql-tools18/bin"
+
+#########################################################################
+# P10K SETTINGS
+#########################################################################
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
